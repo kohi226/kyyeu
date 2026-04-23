@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "url": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800",
+    "description": "Lễ khai giảng năm học"
+  },
+  {
+    "id": 2,
+    "url": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800",
+    "description": "Hoạt động ngoại khóa"
+  },
+  {
+    "id": 3,
+    "url": "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800",
+    "description": "Tiết học thú vị"
+  },
+  {
+    "id": 4,
+    "url": "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800",
+    "description": "Giờ ra chơi"
+  },
+  {
+    "id": 5,
+    "url": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800",
+    "description": "Lễ hội văn hóa"
+  },
+  {
+    "id": 6,
+    "url": "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800",
+    "description": "Ngày hội thể thao"
+  }
+]

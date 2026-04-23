@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanh Xuân Của Chúng Ta</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#fdf8f0;
+  --soft-blue:#e8f4fd;
+  --pink:#fce4ec;
+  --lavender:#f3e5f5;
+  --mint:#e8f5e9;
+  --yellow:#fffde7;
+  --coral:#ff6b6b;
+  --navy:#1a237e;
+  --script:'Dancing Script',cursive;
+  --body:'Quicksand',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--cream);color:#333;overflow-x:hidden}
+.hidden{display:none!important}
+
+/* ===== NOTEBOOK INTRO ===== */
+#nb-intro{
+  position:fixed;inset:0;z-index:9999;
+  background:radial-gradient(ellipse at 50% 40%,#1a0533 0%,#0a0614 70%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.nb-star{
+  position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;
+  animation:nbTwinkle 3s ease-in-out infinite;
+}
+@keyframes nbTwinkle{0%,100%{opacity:.12}50%{opacity:.9}}
+
+.nb-top{
+  font-family:var(--script);font-size:clamp(1.4rem,4vw,2.2rem);color:#ffd700;
+  letter-spacing:.06em;text-align:center;margin-bottom:2rem;
+  text-shadow:0 0 30px rgba(255,215,0,.4);
+  animation:nbFade .9s ease both;position:relative;z-index:2;
+}
+.nb-top span{display:block;font-family:var(--body);font-size:.55em;
+  color:rgba(255,220,160,.6);letter-spacing:.2em;margin-top:4px}
+
+.nb-scene{
+  perspective:900px;perspective-origin:50% 40%;
+  margin-bottom:2rem;position:relative;z-index:2;
+  animation:nbFloat 4s ease-in-out infinite;
+}
+@keyframes nbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+.nb-book{
+  width:200px;height:260px;position:relative;
+  transform-style:preserve-3d;
+  transform:rotateY(-18deg) rotateX(8deg);
+  transition:transform .6s ease;
+  cursor:pointer;
+  will-change:transform;
+}
+.nb-book:hover{transform:rotateY(-13deg) rotateX(6deg) scale(1.03)}
+
+.nb-back{
+  position:absolute;inset:0;
+  background:linear-gradient(170deg,#1a0533,#0d0220);
+  border-radius:2px 8px 8px 2px;
+  transform:translateZ(-14px);
+  box-shadow:-6px 4px 20px rgba(0,0,0,.6);
+}
+.nb-spine{
+  position:absolute;left:0;top:0;width:14px;height:260px;
+  background:linear-gradient(90deg,#0d0220,#1a0533);
+  transform:rotateY(-90deg) translateX(-7px);
+  transform-origin:left center;border-radius:2px 0 0 2px;
+}
+.nb-pages{
+  position:absolute;inset:0;
+  background:linear-gradient(to right,#e8dcc8,#f5edd8 40%,#fdf6e3);
+  border-radius:2px 8px 8px 2px;transform:translateZ(-1px);
+  padding:20px 14px 14px 22px;
+}
+.nb-line{height:2px;background:rgba(0,0,0,.06);border-radius:1px;margin-bottom:9px}
+
+.nb-cover{
+  position:absolute;inset:0;border-radius:2px 8px 8px 2px;
+  background:linear-gradient(150deg,#2d0d55,#1a0533 60%,#0f0220);
+  transform-origin:left center;
+  transform:translateZ(13px);
+  overflow:hidden;
+  backface-visibility:visible;
+  will-change:transform;
+}
+/* .nb-open は JS inline style で制御するので不要だが残す */
+.nb-cover.nb-open{transform:translateZ(13px) rotateY(-105deg)}
+
+.nb-cborder{position:absolute;inset:8px;border:1.5px solid rgba(255,215,0,.55);border-radius:2px 6px 6px 2px}
+.nb-cborder::before{content:'';position:absolute;inset:5px;border:1px solid rgba(255,215,0,.22);border-radius:1px 4px 4px 1px}
+.nb-cc{position:absolute;width:16px;height:16px;border-color:rgba(255,215,0,.65);border-style:solid}
+.nb-cc.tl{top:14px;left:14px;border-width:1.5px 0 0 1.5px}
+.nb-cc.tr{top:14px;right:14px;border-width:1.5px 1.5px 0 0}
+.nb-cc.bl{bottom:14px;left:14px;border-width:0 0 1.5px 1.5px}
+.nb-cc.br{bottom:14px;right:14px;border-width:0 1.5px 1.5px 0}
+.nb-ribbon{position:absolute;right:20px;top:0;width:8px;height:65px;
+  background:linear-gradient(180deg,#ffd700,#e6a800);border-radius:0 0 4px 4px}
+.nb-ctitle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  text-align:center;width:80%;pointer-events:none}
+.nb-icon{font-size:2rem;display:block;margin-bottom:8px}
+.nb-cmain{font-family:var(--script);font-size:.9rem;color:#ffd700;line-height:1.4;
+  text-shadow:0 0 14px rgba(255,215,0,.5)}
+.nb-cyear{font-family:var(--body);font-size:.58rem;color:rgba(255,225,150,.7);
+  letter-spacing:.12em;margin-top:4px}
+
+.nb-ui{display:flex;flex-direction:column;align-items:center;gap:12px;
+  position:relative;z-index:2}
+.nb-hint{font-family:var(--body);font-size:.78rem;color:rgba(255,215,80,.55);
+  letter-spacing:.15em;animation:nbPulse 2.8s ease-in-out infinite}
+@keyframes nbPulse{0%,100%{opacity:.3}50%{opacity:1}}
+.nb-btn{
+  padding:12px 38px;
+  background:linear-gradient(135deg,#7c3aed,#a855f7,#ec4899);
+  border:none;border-radius:50px;color:#fff;
+  font-family:var(--body);font-size:.95rem;font-weight:600;letter-spacing:.07em;
+  cursor:pointer;box-shadow:0 0 22px rgba(168,85,247,.45);
+  transition:transform .2s,box-shadow .2s,opacity .4s;
+  animation:nbFade .8s .5s ease both;
+}
+.nb-btn:hover{transform:translateY(-3px);box-shadow:0 0 40px rgba(168,85,247,.7)}
+.nb-btn:active{transform:scale(.97)}
+.nb-btn.gone{opacity:0;pointer-events:none}
+
+@keyframes nbFade{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes nbZoom{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.12)}}
+.nb-zooming{animation:nbZoom .5s ease forwards}
+
+/* ===== NAVBAR ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:56px;
+  background:rgba(255,253,248,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  transition:box-shadow .3s;
+}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.08)}
+.nav-logo{font-family:var(--script);font-size:1.4rem;color:var(--navy);text-decoration:none}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{
+  display:block;padding:8px 14px;font-size:.82rem;font-weight:500;
+  color:#555;text-decoration:none;border-radius:20px;
+  transition:background .2s,color .2s;white-space:nowrap;
+}
+.nav-links a:hover,.nav-links a.active{background:var(--navy);color:#fff}
+.nav-music-btn{
+  background:none;border:1.5px solid #ddd;border-radius:50%;
+  width:36px;height:36px;font-size:1rem;cursor:pointer;
+  transition:border-color .2s,transform .2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-music-btn:hover{border-color:var(--coral);transform:scale(1.1)}
+.nav-music-btn.playing{border-color:var(--coral);animation:spin 3s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:#333;margin:5px 0;transition:.3s}
+
+/* ===== HERO ===== */
+#hero{
+  min-height:100vh;position:relative;display:flex;align-items:center;
+  justify-content:center;overflow:hidden;
+  background:linear-gradient(170deg,#e8f4fd 0%,#fce4ec 50%,#f3e5f5 100%);
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 20% 20%,rgba(255,107,107,.12) 0%,transparent 40%),
+    radial-gradient(circle at 80% 80%,rgba(26,35,126,.08) 0%,transparent 40%);
+}
+.hero-img-wrap{
+  position:absolute;inset:0;overflow:hidden;
+}
+.hero-img-wrap img{
+  width:100%;height:100%;object-fit:cover;opacity:.18;
+  filter:blur(2px) saturate(1.2);
+}
+.hero-content{
+  position:relative;z-index:2;text-align:center;padding:0 1rem;
+  animation:heroIn 1.2s ease both;
+}
+@keyframes heroIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-title{
+  font-family:var(--script);font-size:clamp(2.8rem,8vw,5.5rem);
+  color:var(--navy);line-height:1.15;margin-bottom:.5rem;
+  text-shadow:2px 4px 20px rgba(26,35,126,.15);
+}
+.hero-sub{
+  font-size:clamp(.9rem,2.5vw,1.15rem);color:#555;
+  font-style:italic;margin-bottom:2rem;letter-spacing:.03em;
+}
+.hero-cta{
+  display:inline-block;padding:14px 40px;
+  background:var(--navy);color:#fff;border-radius:50px;
+  font-weight:600;font-size:.95rem;letter-spacing:.05em;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 8px 30px rgba(26,35,126,.25);
+}
+.hero-cta:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(26,35,126,.35)}
+.scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  color:#aaa;font-size:.75rem;letter-spacing:.1em;
+  animation:bounce 2s ease-in-out infinite;
+}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+.scroll-hint::after{content:'↓';font-size:1.2rem}
+
+/* ===== SECTION COMMONS ===== */
+section{padding:80px 0}
+.container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+.section-title{
+  font-family:var(--script);font-size:clamp(2rem,5vw,3rem);
+  color:var(--navy);text-align:center;margin-bottom:.5rem;
+}
+.section-line{
+  width:60px;height:3px;border-radius:2px;
+  background:linear-gradient(90deg,var(--coral),#f06292);
+  margin:0 auto 3rem;
+}
+
+/* ===== THÀNH VIÊN ===== */
+#thanh-vien{background:var(--soft-blue)}
+.members-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:1.5rem;
+}
+.member-card{
+  position:relative;border-radius:16px;overflow:hidden;cursor:pointer;
+  aspect-ratio:3/4;background:#ddd;
+  box-shadow:0 4px 20px rgba(0,0,0,.1);
+  transition:transform .3s,box-shadow .3s;
+}
+.member-card:hover{transform:translateY(-6px);box-shadow:0 12px 35px rgba(0,0,0,.18)}
+.member-card img{width:100%;height:100%;object-fit:cover;display:block}
+.member-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(26,35,126,.88) 0%,transparent 55%);
+  opacity:0;transition:opacity .3s;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:16px;
+}
+.member-card:hover .member-overlay{opacity:1}
+.member-name{color:#fff;font-weight:600;font-size:.9rem;margin-bottom:4px}
+.member-role{color:rgba(255,255,255,.7);font-size:.75rem}
+.member-view{
+  display:inline-block;margin-top:8px;padding:5px 12px;
+  background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);
+  color:#fff;border-radius:20px;font-size:.72rem;cursor:pointer;
+  transition:background .2s;
+}
+.member-view:hover{background:rgba(255,255,255,.35)}
+/* placeholder avatar when no image */
+.member-placeholder{
+  width:100%;height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#e8eaf6,#c5cae9);
+  font-size:3rem;
+}
+.member-placeholder span{font-size:.85rem;color:#5c6bc0;margin-top:8px;font-weight:500}
+
+/* ===== KHOẢNH KHẮC ===== */
+#khoang-khac{background:var(--cream)}
+.gallery-upload-area{
+  border:2px dashed #c5cae9;border-radius:16px;padding:2rem;
+  text-align:center;cursor:pointer;transition:border-color .2s,background .2s;
+  margin-bottom:2rem;
+}
+.gallery-upload-area:hover{border-color:var(--navy);background:rgba(26,35,126,.03)}
+.gallery-upload-area input{display:none}
+.upload-icon{font-size:2rem;margin-bottom:.5rem}
+.upload-text{color:#888;font-size:.9rem}
+.gallery-grid{
+  columns:3;gap:1rem;
+}
+.gallery-item{position:relative;margin-bottom:1rem;break-inside:avoid}
+.gallery-item img{
+  width:100%;border-radius:12px;
+  cursor:pointer;transition:transform .2s,box-shadow .2s;
+  display:block;
+}
+.gallery-item:hover img{transform:scale(1.02);box-shadow:0 8px 30px rgba(0,0,0,.2)}
+.gallery-del{
+  position:absolute;top:8px;right:8px;
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(0,0,0,.55);border:none;color:#fff;
+  font-size:.85rem;cursor:pointer;
+  opacity:0;transition:opacity .2s,background .2s;
+  display:flex;align-items:center;justify-content:center;
+  z-index:5;
+}
+.gallery-item:hover .gallery-del{opacity:1}
+.gallery-del:hover{background:rgba(220,38,38,.85)}
+.gallery-empty{text-align:center;color:#aaa;padding:3rem;font-size:.9rem}
+
+/* delete btns for members & timeline */
+.del-btn{
+  position:absolute;top:8px;right:8px;
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(220,38,38,.75);border:none;color:#fff;
+  font-size:.75rem;cursor:pointer;
+  opacity:0;transition:opacity .2s;
+  display:flex;align-items:center;justify-content:center;z-index:10;
+}
+.member-card:hover .del-btn,
+.tl-card:hover .del-btn{opacity:1}
+.del-btn:hover{background:rgba(220,38,38,1)}
+.tl-card{position:relative}
+
+/* lightbox delete */
+.lb-delete-btn{
+  padding:7px 18px;
+  background:rgba(220,38,38,.75);border:1px solid rgba(255,100,100,.4);
+  border-radius:20px;color:#fff;cursor:pointer;font-size:.82rem;
+  transition:background .2s;margin-left:auto;
+}
+.lb-delete-btn:hover{background:rgba(220,38,38,1)}
+
+/* ===== LIGHTBOX ===== */
+#lightbox{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.9);backdrop-filter:blur(8px);
+  display:none;flex-direction:column;align-items:center;
+  justify-content:center;padding:1rem;gap:.7rem;overflow-y:auto;
+}
+#lightbox.open{display:flex}
+.lb-img-wrap{position:relative;flex-shrink:0}
+.lb-img-wrap img{
+  max-width:min(88vw,720px);max-height:55vh;
+  border-radius:12px;object-fit:contain;display:block;
+}
+.lb-close{
+  position:fixed;top:1rem;right:1rem;
+  background:rgba(255,255,255,.15);border:none;color:#fff;
+  width:40px;height:40px;border-radius:50%;font-size:1.2rem;cursor:pointer;
+  z-index:10;transition:background .2s;
+}
+.lb-close:hover{background:rgba(255,255,255,.3)}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,.15);border:none;color:#fff;
+  width:44px;height:44px;border-radius:50%;font-size:1.3rem;cursor:pointer;
+  transition:background .2s;
+}
+.lb-nav:hover{background:rgba(255,255,255,.3)}
+.lb-prev{left:-52px}.lb-next{right:-52px}
+.lb-reactions{
+  display:flex;gap:8px;flex-wrap:wrap;justify-content:center;flex-shrink:0;
+}
+.lb-react-btn{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:20px;padding:6px 12px;cursor:pointer;
+  font-size:.95rem;color:#fff;transition:background .2s,transform .2s;
+  display:flex;align-items:center;gap:5px;
+}
+.lb-react-btn:hover{background:rgba(255,255,255,.25);transform:scale(1.08)}
+.lb-react-btn .cnt{font-size:.78rem;font-weight:600}
+
+/* lightbox comments */
+.lb-comments{
+  width:min(88vw,600px);flex-shrink:0;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:.9rem 1rem;
+}
+.lb-comments-title{
+  font-size:.78rem;color:rgba(255,255,255,.5);
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:.6rem;
+}
+.lb-comments-list{
+  max-height:110px;overflow-y:auto;
+  display:flex;flex-direction:column;gap:6px;
+  margin-bottom:.7rem;
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent;
+}
+.lb-comment{
+  display:flex;gap:8px;align-items:baseline;
+}
+.lb-cmt-author{
+  font-weight:700;font-size:.78rem;color:#ffd700;
+  white-space:nowrap;flex-shrink:0;
+}
+.lb-cmt-text{font-size:.82rem;color:rgba(255,255,255,.8);line-height:1.5;word-break:break-word}
+.lb-cmt-del{
+  margin-left:auto;background:none;border:none;color:rgba(255,100,100,.5);
+  cursor:pointer;font-size:.7rem;flex-shrink:0;padding:0 2px;
+  display:none;transition:color .2s;
+}
+body.is-admin .lb-cmt-del{display:block}
+.lb-cmt-del:hover{color:#ff5252}
+.lb-comments-empty{font-size:.8rem;color:rgba(255,255,255,.3);text-align:center;padding:.3rem}
+.lb-comment-form{
+  display:flex;gap:.5rem;
+}
+.lb-comment-form input{
+  padding:7px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.08);color:#fff;font-family:var(--body);font-size:.83rem;
+  outline:none;transition:border-color .2s;
+}
+.lb-comment-form input:first-child{width:100px;flex-shrink:0}
+.lb-comment-form input:nth-child(2){flex:1}
+.lb-comment-form input::placeholder{color:rgba(255,255,255,.28)}
+.lb-comment-form input:focus{border-color:rgba(255,255,255,.45)}
+.lb-comment-form button{
+  padding:7px 16px;border:none;border-radius:20px;
+  background:linear-gradient(135deg,#7c3aed,#ec4899);
+  color:#fff;font-family:var(--body);font-size:.82rem;font-weight:600;
+  cursor:pointer;white-space:nowrap;transition:transform .2s;flex-shrink:0;
+}
+.lb-comment-form button:hover{transform:scale(1.05)}
+
+/* ===== DÒNG THỜI GIAN ===== */
+#dong-thoi-gian{background:var(--soft-blue)}
+.timeline{position:relative;max-width:700px;margin:0 auto}
+.timeline::before{
+  content:'';position:absolute;left:50%;transform:translateX(-50%);
+  top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#c5cae9,#9fa8da);
+}
+.tl-item{
+  display:flex;margin-bottom:2.5rem;
+  animation:tlIn .6s ease both;
+}
+.tl-item:nth-child(odd){flex-direction:row-reverse}
+@keyframes tlIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.tl-dot{
+  position:relative;z-index:2;flex-shrink:0;
+  width:14px;height:14px;border-radius:50%;
+  background:var(--coral);border:3px solid #fff;
+  box-shadow:0 0 0 3px var(--coral);
+  margin:6px 0;align-self:flex-start;
+}
+.tl-spacer{width:50%;flex-shrink:0;display:flex;
+  align-items:flex-start;justify-content:center;padding:0 20px}
+.tl-card{
+  background:#fff;border-radius:16px;padding:1.25rem 1.5rem;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);width:calc(50% - 30px);flex-shrink:0;
+  border-top:3px solid var(--coral);
+}
+.tl-date{font-size:.75rem;color:var(--coral);font-weight:600;
+  letter-spacing:.05em;margin-bottom:.3rem}
+.tl-title{font-family:var(--script);font-size:1.3rem;color:var(--navy);margin-bottom:.4rem}
+.tl-desc{font-size:.85rem;color:#666;line-height:1.6}
+.tl-add-btn{
+  display:block;margin:2rem auto 0;padding:10px 28px;
+  background:var(--navy);color:#fff;border:none;border-radius:25px;
+  font-family:var(--body);font-size:.85rem;font-weight:600;cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+}
+.tl-add-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,35,126,.25)}
+
+/* Timeline add modal */
+.modal-overlay{
+  position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.5);
+  backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex}
+.modal-box{
+  background:#fff;border-radius:20px;padding:2rem;width:min(90vw,480px);
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
+}
+.modal-box h3{font-family:var(--script);font-size:1.6rem;color:var(--navy);margin-bottom:1.2rem}
+.modal-box input,.modal-box textarea{
+  width:100%;padding:10px 14px;border:1.5px solid #e0e0e0;border-radius:10px;
+  font-family:var(--body);font-size:.9rem;margin-bottom:.8rem;outline:none;
+  transition:border-color .2s;
+}
+.modal-box input:focus,.modal-box textarea:focus{border-color:var(--navy)}
+.modal-box textarea{resize:vertical;min-height:80px}
+.modal-actions{display:flex;gap:.8rem;justify-content:flex-end}
+.btn-cancel{padding:9px 22px;border:1.5px solid #ddd;border-radius:20px;
+  background:none;cursor:pointer;font-family:var(--body);font-size:.88rem;transition:border-color .2s}
+.btn-cancel:hover{border-color:#999}
+.btn-save{padding:9px 22px;border:none;border-radius:20px;
+  background:var(--navy);color:#fff;cursor:pointer;
+  font-family:var(--body);font-size:.88rem;font-weight:600;transition:transform .2s}
+.btn-save:hover{transform:translateY(-2px)}
+
+/* ===== PHIM NGẮN ===== */
+#phim-ngan{background:var(--cream)}
+.video-wrap{
+  position:relative;padding-top:56.25%;border-radius:20px;overflow:hidden;
+  box-shadow:0 12px 50px rgba(0,0,0,.15);max-width:800px;margin:0 auto;
+}
+.video-wrap iframe,.video-wrap video{
+  position:absolute;top:0;left:0;width:100%;height:100%;border:none;
+}
+.video-placeholder{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  background:linear-gradient(135deg,#1a237e,#311b92);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:#fff;gap:.8rem;
+}
+.video-placeholder .play-icon{font-size:3.5rem}
+.video-placeholder p{font-size:.9rem;opacity:.7;text-align:center;padding:0 2rem}
+.video-url-input{
+  display:flex;gap:.8rem;max-width:600px;margin:1.5rem auto 0;
+}
+.video-url-input input{
+  flex:1;padding:10px 16px;border:1.5px solid #e0e0e0;border-radius:25px;
+  font-family:var(--body);font-size:.88rem;outline:none;transition:border-color .2s;
+}
+.video-url-input input:focus{border-color:var(--navy)}
+.video-url-input button{
+  padding:10px 20px;background:var(--navy);color:#fff;border:none;border-radius:25px;
+  font-family:var(--body);font-size:.88rem;cursor:pointer;white-space:nowrap;
+  transition:transform .2s;
+}
+.video-url-input button:hover{transform:scale(1.03)}
+
+/* ===== LƯU BÚT ===== */
+#luu-but{background:var(--lavender)}
+.notes-form{
+  max-width:600px;margin:0 auto 2.5rem;
+  background:#fff;border-radius:20px;padding:1.5rem;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+}
+.notes-form input,.notes-form textarea{
+  width:100%;padding:10px 14px;border:1.5px solid #e0e0e0;border-radius:10px;
+  font-family:var(--body);font-size:.9rem;margin-bottom:.8rem;outline:none;
+  transition:border-color .2s;
+}
+.notes-form input:focus,.notes-form textarea:focus{border-color:#9c27b0}
+.notes-form textarea{resize:vertical;min-height:90px}
+.notes-form button{
+  width:100%;padding:11px;background:linear-gradient(135deg,#9c27b0,#e91e63);
+  border:none;border-radius:12px;color:#fff;font-family:var(--body);
+  font-size:.92rem;font-weight:600;cursor:pointer;transition:transform .2s,box-shadow .2s;
+}
+.notes-form button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(156,39,176,.35)}
+.notes-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.2rem;
+}
+.note-card{
+  border-radius:12px;padding:1.2rem;min-height:140px;
+  box-shadow:0 4px 15px rgba(0,0,0,.1);
+  position:relative;transition:transform .2s,box-shadow .2s;
+  transform:rotate(var(--rot));
+}
+.note-card:hover{transform:rotate(0deg) scale(1.04);box-shadow:0 10px 30px rgba(0,0,0,.18);z-index:10}
+.note-author{font-weight:700;font-size:.82rem;margin-bottom:.6rem;color:rgba(0,0,0,.6)}
+.note-text{font-size:.88rem;line-height:1.65;color:rgba(0,0,0,.75);
+  font-style:italic;word-break:break-word}
+
+/* ===== MUSIC PLAYER ===== */
+#music-player{
+  position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;
+  background:#fff;border-radius:20px;padding:1rem 1.2rem;
+  box-shadow:0 8px 40px rgba(0,0,0,.15);
+  min-width:220px;transition:transform .3s,opacity .3s;
+  border:1px solid rgba(0,0,0,.06);
+}
+#music-player.hidden-player{transform:translateY(calc(100% + 2rem));opacity:0;pointer-events:none}
+.mp-title{font-size:.75rem;color:#888;margin-bottom:.3rem}
+.mp-song{font-weight:600;font-size:.88rem;color:var(--navy);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;margin-bottom:.8rem}
+.mp-controls{display:flex;align-items:center;gap:.8rem}
+.mp-btn{background:none;border:none;cursor:pointer;font-size:1.1rem;
+  transition:transform .2s;padding:4px}
+.mp-btn:hover{transform:scale(1.2)}
+.mp-progress{flex:1;height:4px;border-radius:2px;
+  background:#eee;cursor:pointer;overflow:hidden}
+.mp-bar{height:100%;background:linear-gradient(90deg,var(--coral),#f06292);
+  border-radius:2px;width:0%;transition:width .5s linear}
+.mp-time{font-size:.7rem;color:#aaa;white-space:nowrap}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--navy);color:rgba(255,255,255,.7);
+  text-align:center;padding:2.5rem 1rem;
+  font-size:.85rem;line-height:2;
+}
+footer .footer-title{font-family:var(--script);font-size:1.8rem;color:#fff;margin-bottom:.4rem}
+
+/* ===== ADMIN ===== */
+.nav-admin-btn{
+  display:flex;align-items:center;gap:4px;
+  padding:6px 14px;border-radius:20px;
+  border:1.5px solid #ddd;background:none;
+  font-family:var(--body);font-size:.8rem;font-weight:600;
+  color:#555;cursor:pointer;transition:border-color .2s,color .2s,background .2s;
+  white-space:nowrap;
+}
+.nav-admin-btn:hover{border-color:var(--navy);color:var(--navy)}
+.nav-admin-btn.is-admin{
+  border-color:#e53935;color:#e53935;background:rgba(229,57,53,.06);
+}
+/* hide all admin-only elements by default */
+.admin-only{display:none!important}
+body.is-admin .admin-only{display:flex!important}
+body.is-admin .admin-only-block{display:block!important}
+.admin-only-block{display:none!important}
+/* gallery-del and del-btn are flex but only show on hover when admin */
+body.is-admin .gallery-item:hover .gallery-del{opacity:1}
+body.is-admin .member-card:hover .del-btn,
+body.is-admin .tl-card:hover .del-btn{opacity:1}
+
+/* flash message */
+#flash-msg{
+  position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(10px);
+  background:#1a1a2e;color:#fff;padding:10px 24px;border-radius:25px;
+  font-size:.85rem;font-family:var(--body);z-index:9000;
+  opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap;
+  box-shadow:0 4px 20px rgba(0,0,0,.25);
+}
+#flash-msg.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#flash-msg.error{background:#c62828}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* video source tabs */
+.video-source-tabs{
+  display:flex;gap:.6rem;max-width:600px;margin:.8rem auto 0;flex-wrap:wrap;
+}
+.vsrc-tab{
+  padding:8px 18px;border-radius:20px;border:1.5px solid #ddd;
+  background:none;font-family:var(--body);font-size:.82rem;cursor:pointer;
+  transition:all .2s;
+}
+.vsrc-tab:hover{border-color:var(--navy);color:var(--navy)}
+.vsrc-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.vsrc-clear{border-color:#ffcdd2;color:#e53935}
+.vsrc-clear:hover{background:#e53935;color:#fff;border-color:#e53935}
+.video-file-input{max-width:600px;margin:.8rem auto 0;text-align:center}
+.video-upload-label{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:12px 28px;border:2px dashed #c5cae9;border-radius:12px;
+  cursor:pointer;font-size:.9rem;color:#666;
+  transition:border-color .2s,color .2s;
+}
+.video-upload-label:hover{border-color:var(--navy);color:var(--navy)}
+.video-upload-label input{display:none}
+.video-hint{font-size:.78rem;color:#aaa;margin-top:.6rem}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .hamburger{display:block}
+  .nav-links{
+    position:fixed;top:56px;left:0;right:0;
+    background:rgba(255,253,248,.97);padding:1rem;
+    display:none;flex-direction:column;gap:4px;
+    border-bottom:1px solid rgba(0,0,0,.06);
+  }
+  .nav-links.open{display:flex}
+  .gallery-grid{columns:2}
+  .timeline::before{left:20px}
+  .tl-item,.tl-item:nth-child(odd){flex-direction:row}
+  .tl-spacer{width:40px;padding:0 10px;justify-content:flex-start}
+  .tl-card{width:auto;flex:1}
+  .lb-prev{left:-10px}.lb-next{right:-10px}
+  .members-grid{grid-template-columns:repeat(2,1fr)}
+  #music-player{min-width:180px;right:.8rem;bottom:.8rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NOTEBOOK INTRO =====
+     ✏️  ĐỔI CHỮ Ở ĐÂY:
+     - Dòng tiêu đề lớn  → sửa "Thanh Xuân Của Chúng Ta" bên dưới (.nb-top)
+     - Dòng phụ nhỏ      → sửa "KỶ YẾU LỚP · 2025" trong thẻ <span>
+     - Chữ trên bìa sổ   → sửa "Thanh Xuân" và "Của Chúng Ta" trong .nb-cmain
+     - Năm trên bìa sổ   → sửa "✦ 2025 ✦" trong .nb-cyear
+     - Nút mở            → sửa "📖 Mở Sổ Kỷ Niệm" trong #nb-btn
+     ============================================= -->
+<div id="nb-intro">
+  <div id="nb-stars"></div>
+
+  <!-- TIÊU ĐỀ LỚN PHÍA TRÊN SỔ -->
+  <div class="nb-top">
+    Thanh Xuân Của Chúng Ta <!-- ✏️ đổi tên lớp/trường ở đây -->
+    <span>KỶ YẾU LỚP · 2025</span> <!-- ✏️ đổi lớp + năm ở đây -->
+  </div>
+
+  <div class="nb-scene">
+    <div class="nb-book" id="nb-book">
+      <div class="nb-back"></div>
+      <div class="nb-spine"></div>
+      <div class="nb-pages">
+        <div class="nb-line" style="width:68%"></div>
+        <div class="nb-line" style="width:88%"></div>
+        <div class="nb-line" style="width:78%"></div>
+        <div class="nb-line" style="width:55%"></div>
+        <div class="nb-line" style="width:82%"></div>
+        <div class="nb-line" style="width:72%"></div>
+        <div class="nb-line" style="width:42%"></div>
+      </div>
+      <div class="nb-cover" id="nb-cover">
+        <div class="nb-cborder"></div>
+        <div class="nb-cc tl"></div><div class="nb-cc tr"></div>
+        <div class="nb-cc bl"></div><div class="nb-cc br"></div>
+        <div class="nb-ribbon"></div>
+        <div class="nb-ctitle">
+          <span class="nb-icon">🎓</span> <!-- ✏️ đổi icon nếu muốn -->
+          <!-- ✏️ CHỮ TRÊN BÌA SỔ -->
+          <div class="nb-cmain">Thanh Xuân<br>Của Chúng Ta</div>
+          <div class="nb-cyear">✦ 2025 ✦</div> <!-- ✏️ đổi năm -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nb-ui">
+    <span class="nb-hint">Nhấn để mở sổ kỷ niệm</span>
+    <button class="nb-btn" id="nb-btn">📖 Mở Sổ Kỷ Niệm</button> <!-- ✏️ đổi chữ nút -->
+  </div>
+</div>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Thanh Xuân</a>
+  <button class="hamburger" id="hamburger" aria-label="menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#hero" class="active">Trang chủ</a></li>
+    <li><a href="#thanh-vien">Thành viên</a></li>
+    <li><a href="#khoang-khac">Khoảnh khắc</a></li>
+    <li><a href="#dong-thoi-gian">Dòng thời gian</a></li>
+    <li><a href="#luu-but">Lưu bút</a></li>
+    <li><a href="#phim-ngan">Nhạc</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="nav-admin-btn" id="admin-toggle">
+      <span id="admin-icon">🔒</span><span id="admin-text"> Admin</span>
+    </button>
+    <button class="nav-music-btn" id="nav-music-toggle" title="Nhạc">🎵</button>
+  </div>
+</nav>
+
+<!-- ===== ADMIN MODAL ===== -->
+<div class="modal-overlay" id="admin-modal">
+  <div class="modal-box">
+    <h3>🔒 Đăng nhập Admin</h3>
+    <input type="password" id="admin-password" placeholder="Nhập mật khẩu..." onkeydown="if(event.key==='Enter')doAdminLogin()">
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="document.getElementById('admin-modal').classList.remove('open')">Huỷ</button>
+      <button class="btn-save" onclick="doAdminLogin()">Đăng nhập ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FLASH ===== -->
+<div id="flash-msg"></div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-img-wrap">
+    <img id="hero-img" src="" alt="" onerror="this.style.display='none'">
+  </div>
+  <div class="hero-content">
+    <h1 class="hero-title">Thanh Xuân Của Chúng Ta</h1>
+    <p class="hero-sub">"Những năm tháng rực rỡ dưới mái trường thân yêu"</p>
+    <a href="#thanh-vien" class="hero-cta">Khám phá kỷ niệm ✨</a>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- ===== THÀNH VIÊN ===== -->
+<section id="thanh-vien">
+  <div class="container">
+    <h2 class="section-title">Thành Viên</h2>
+    <div class="section-line"></div>
+    <div class="members-grid" id="members-grid">
+      <!-- Generated by JS -->
+    </div>
+    <div style="text-align:center;margin-top:2rem" class="admin-only-block">
+      <button class="tl-add-btn" onclick="openMemberModal()">+ Thêm thành viên</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KHOẢNH KHẮC ===== -->
+<section id="khoang-khac">
+  <div class="container">
+    <h2 class="section-title reveal">Khoảnh Khắc</h2>
+    <div class="section-line reveal"></div>
+    <label class="gallery-upload-area reveal admin-only-block" for="gallery-upload">
+      <input type="file" id="gallery-upload" multiple accept="image/*" onchange="handleGalleryUpload(event)">
+      <div class="upload-icon">📷</div>
+      <div class="upload-text">Nhấn hoặc kéo thả ảnh vào đây để thêm vào kỷ yếu</div>
+    </label>
+    <div class="gallery-grid" id="gallery-grid">
+      <p class="gallery-empty">Chưa có ảnh nào — hãy tải lên những khoảnh khắc đẹp! 📸</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DÒNG THỜI GIAN ===== -->
+<section id="dong-thoi-gian">
+  <div class="container">
+    <h2 class="section-title reveal">Dòng Thời Gian</h2>
+    <div class="section-line reveal"></div>
+    <div class="timeline" id="timeline"></div>
+    <button class="tl-add-btn reveal admin-only-block" onclick="openTLModal()">+ Thêm sự kiện</button>
+  </div>
+</section>
+
+<!-- ===== PHIM NGẮN / NHẠC ===== -->
+<section id="phim-ngan">
+  <div class="container">
+    <h2 class="section-title reveal">Phim Ngắn Kỷ Niệm</h2>
+    <div class="section-line reveal"></div>
+    <div class="video-wrap" id="video-wrap">
+      <div class="video-placeholder" id="video-placeholder">
+        <div class="play-icon">🎬</div>
+        <p>Upload video hoặc dán link YouTube bên dưới</p>
+      </div>
+    </div>
+
+    <!-- Admin: chọn nguồn video -->
+    <div class="video-source-tabs admin-only-block reveal" id="video-source-tabs">
+      <button class="vsrc-tab active" onclick="switchVideoTab('yt')">🔗 Link YouTube</button>
+      <button class="vsrc-tab" onclick="switchVideoTab('file')">📁 Upload file</button>
+      <button class="vsrc-tab vsrc-clear" onclick="clearVideo()">✕ Xóa video</button>
+    </div>
+
+    <div class="video-url-input reveal admin-only-block" id="vsrc-yt">
+      <input type="text" id="video-url-input" placeholder="Dán link YouTube... (vd: https://youtu.be/xxx)">
+      <button onclick="loadVideo()">Tải video</button>
+    </div>
+
+    <div class="video-file-input reveal admin-only-block" id="vsrc-file" style="display:none">
+      <label class="video-upload-label" for="video-file-input">
+        <input type="file" id="video-file-input" accept="video/*" onchange="loadVideoFile(event)">
+        <span>📁 Chọn file video (mp4, mov, webm...)</span>
+      </label>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LƯU BÚT ===== -->
+<section id="luu-but">
+  <div class="container">
+    <h2 class="section-title reveal">Gửi Lời Lưu Bút</h2>
+    <div class="section-line reveal"></div>
+    <div class="notes-form reveal admin-only-block">
+      <input type="text" id="note-name" placeholder="Tên của bạn...">
+      <textarea id="note-text" placeholder="Viết lời nhắn cho cả lớp..."></textarea>
+      <button onclick="addNote()">Gửi lời lưu bút 💌</button>
+    </div>
+    <div class="notes-grid" id="notes-grid"></div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-title">Thanh Xuân Của Chúng Ta</div>
+  <p>Những kỷ niệm đẹp sẽ mãi trong tim ❤️</p>
+  <p style="margin-top:.5rem;font-size:.8rem;opacity:.5">Kỷ yếu 2025</p>
+</footer>
+
+<!-- ===== LIGHTBOX ===== -->
+<div id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <div class="lb-img-wrap">
+    <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
+    <img id="lb-img" src="" alt="">
+    <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
+  </div>
+  <div class="lb-reactions">
+    <button class="lb-react-btn" onclick="lbReact('👍')">👍 <span class="cnt" id="r0">0</span></button>
+    <button class="lb-react-btn" onclick="lbReact('❤️')">❤️ <span class="cnt" id="r1">0</span></button>
+    <button class="lb-react-btn" onclick="lbReact('😂')">😂 <span class="cnt" id="r2">0</span></button>
+    <button class="lb-react-btn" onclick="lbReact('😢')">😢 <span class="cnt" id="r3">0</span></button>
+    <button class="lb-react-btn" onclick="lbReact('🔥')">🔥 <span class="cnt" id="r4">0</span></button>
+    <button class="lb-delete-btn admin-only" onclick="deleteCurrentPhoto()">🗑 Xóa ảnh</button>
+  </div>
+
+  <!-- COMMENTS -->
+  <div class="lb-comments">
+    <div class="lb-comments-title">💬 Bình luận</div>
+    <div class="lb-comments-list" id="lb-comments-list"></div>
+    <form class="lb-comment-form" onsubmit="submitComment(event)">
+      <input type="text" id="lb-cmt-name" placeholder="Tên bạn..." maxlength="30" required>
+      <input type="text" id="lb-cmt-text" placeholder="Viết bình luận..." maxlength="200" required>
+      <button type="submit">Gửi</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== TIMELINE MODAL ===== -->
+<div class="modal-overlay" id="tl-modal">
+  <div class="modal-box">
+    <h3>Thêm sự kiện</h3>
+    <input type="text" id="tl-date-input" placeholder="Thời gian (vd: Tháng 9, 2024)">
+    <input type="text" id="tl-title-input" placeholder="Tên sự kiện...">
+    <textarea id="tl-desc-input" placeholder="Mô tả ngắn..."></textarea>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeTLModal()">Huỷ</button>
+      <button class="btn-save" onclick="saveTLEvent()">Lưu ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MEMBER MODAL ===== -->
+<div class="modal-overlay" id="member-modal">
+  <div class="modal-box">
+    <h3>Thêm thành viên</h3>
+    <input type="text" id="m-name" placeholder="Họ tên...">
+    <input type="text" id="m-role" placeholder="Biệt danh / chức vụ...">
+    <label style="display:block;margin-bottom:.8rem">
+      <span style="font-size:.85rem;color:#888;display:block;margin-bottom:.4rem">Ảnh thành viên (tuỳ chọn)</span>
+      <input type="file" id="m-photo" accept="image/*" style="font-size:.85rem">
+    </label>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="document.getElementById('member-modal').classList.remove('open')">Huỷ</button>
+      <button class="btn-save" onclick="saveMember()">Thêm ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MUSIC PLAYER ===== -->
+<div id="music-player" class="hidden-player">
+  <div class="mp-title">🎵 Đang phát</div>
+  <div class="mp-song" id="mp-song-name">Memories — Bensound</div>
+  <div class="mp-controls">
+    <button class="mp-btn" onclick="mpPrev()">⏮</button>
+    <button class="mp-btn" id="mp-play-btn" onclick="mpToggle()">▶</button>
+    <button class="mp-btn" onclick="mpNext()">⏭</button>
+    <div class="mp-progress" onclick="mpSeek(event)">
+      <div class="mp-bar" id="mp-bar"></div>
+    </div>
+    <span class="mp-time" id="mp-time">0:00</span>
+  </div>
+</div>
+<audio id="audio-el"></audio>
+
+<script>
+// ===================================================
+//  NOTEBOOK INTRO — rewritten, guaranteed to work
+// ===================================================
+(function(){
+  var wrap  = document.getElementById('nb-intro');
+  var cover = document.getElementById('nb-cover');
+  var book  = document.getElementById('nb-book');
+  var btn   = document.getElementById('nb-btn');
+  var scene = wrap.querySelector('.nb-scene');
+  var hint  = wrap.querySelector('.nb-hint');
+  var stars = document.getElementById('nb-stars');
+
+  // sprinkle stars
+  for(var i=0;i<55;i++){
+    var s=document.createElement('div');
+    s.className='nb-star';
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*100+'%';
+    s.style.animationDelay=(Math.random()*3)+'s';
+    s.style.animationDuration=(2+Math.random()*3)+'s';
+    stars.appendChild(s);
+  }
+
+  var opened = false;
+
+  function doOpen(){
+    if(opened) return;
+    opened = true;
+
+    // 1. hide UI
+    btn.style.opacity  = '0';
+    btn.style.pointerEvents = 'none';
+    hint.style.opacity = '0';
+
+    // 2. stop float, tilt book upright
+    scene.style.animation = 'none';
+    book.style.transition  = 'transform 0.8s ease';
+    book.style.transform   = 'rotateY(-8deg) rotateX(3deg)';
+
+    // 3. swing cover open after 100ms
+    setTimeout(function(){
+      cover.style.transition = 'transform 1.1s cubic-bezier(0.4,0,0.2,1)';
+      cover.style.transform  = 'translateZ(13px) rotateY(-105deg)';
+    }, 100);
+
+    // 4. zoom + fade after cover opens (100 + 1100 = 1200ms)
+    setTimeout(function(){
+      wrap.style.transition = 'transform 0.65s ease, opacity 0.5s ease 0.15s';
+      wrap.style.transform  = 'scale(1.2)';
+      wrap.style.opacity    = '0';
+    }, 1200);
+
+    // 5. hide wrapper after fade done (1200 + 650 = 1850ms)
+    setTimeout(function(){
+      wrap.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 1900);
+  }
+
+  // single listener on button only — avoids double-trigger from book click bubbling
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    doOpen();
+  });
+  // clicking the book itself also works
+  book.addEventListener('click', function(e){
+    e.stopPropagation();
+    doOpen();
+  });
+})();
+
+// ===================================================
+//  NAVBAR
+// ===================================================
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',scrollY>30);
+  // active link
+  const secs=['hero','thanh-vien','khoang-khac','dong-thoi-gian','luu-but','phim-ngan'];
+  let cur='hero';
+  secs.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<100)cur=id;});
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+cur);
+  });
+});
+document.getElementById('hamburger').addEventListener('click',()=>{
+  document.getElementById('nav-links').classList.toggle('open');
+});
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('nav-links').classList.remove('open');
+}));
+
+// ===================================================
+//  SCROLL REVEAL
+// ===================================================
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting)e.target.classList.add('visible');
+}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// ===================================================
+//  DATA (localStorage)
+// ===================================================
+function load(key,def){try{return JSON.parse(localStorage.getItem(key))||def;}catch{return def;}}
+function save(key,val){localStorage.setItem(key,JSON.stringify(val));}
+
+// ===================================================
+//  MEMBERS
+// ===================================================
+let members=load('ky_members',[
+  {name:'Lớp trưởng',role:'Boss 😎',photo:''},
+  {name:'Lớp phó',role:'Phó tướng',photo:''},
+]);
+
+function renderMembers(){
+  const grid=document.getElementById('members-grid');
+  const colors=['#e8f4fd','#fce4ec','#e8f5e9','#fffde7','#f3e5f5','#fff3e0'];
+  grid.innerHTML=members.map((m,i)=>`
+    <div class="member-card">
+      ${m.photo
+        ?`<img src="${m.photo}" alt="${m.name}" loading="lazy">`
+        :`<div class="member-placeholder" style="background:linear-gradient(135deg,${colors[i%colors.length]},${colors[(i+2)%colors.length]})">
+            <span style="font-size:3rem">👤</span>
+            <span>${m.name.charAt(0)}</span>
+          </div>`}
+      <div class="member-overlay">
+        <div class="member-name">${m.name}</div>
+        <div class="member-role">${m.role}</div>
+      </div>
+      <button class="del-btn admin-only" onclick="deleteMember(event,${i})" title="Xóa">✕</button>
+    </div>
+  `).join('');
+}
+renderMembers();
+
+function deleteMember(e,i){
+  e.stopPropagation();
+  if(!confirm('Xóa thành viên này?'))return;
+  members.splice(i,1);save('ky_members',members);renderMembers();
+}
+function openMemberModal(){document.getElementById('member-modal').classList.add('open');}
+function saveMember(){
+  const name=document.getElementById('m-name').value.trim();
+  const role=document.getElementById('m-role').value.trim();
+  const file=document.getElementById('m-photo').files[0];
+  if(!name)return;
+  if(file){
+    const r=new FileReader();
+    r.onload=e=>{members.push({name,role,photo:e.target.result});save('ky_members',members);renderMembers();};
+    r.readAsDataURL(file);
+  } else {
+    members.push({name,role,photo:''});save('ky_members',members);renderMembers();
+  }
+  document.getElementById('member-modal').classList.remove('open');
+  document.getElementById('m-name').value='';
+  document.getElementById('m-role').value='';
+  document.getElementById('m-photo').value='';
+}
+
+// ===================================================
+//  GALLERY + LIGHTBOX + COMMENTS
+// ===================================================
+let galleryImages = load('ky_gallery', []);
+let lbIndex = 0;
+let reactions = load('ky_reactions', {});
+let photoComments = load('ky_comments', {});
+
+function renderGallery(){
+  const grid = document.getElementById('gallery-grid');
+  if(!galleryImages.length){
+    grid.innerHTML = '<p class="gallery-empty">Chưa có ảnh nào — hãy tải lên những khoảnh khắc đẹp! 📸</p>';
+    return;
+  }
+  grid.innerHTML = galleryImages.map((src,i) => `
+    <div class="gallery-item">
+      <img src="${src}" loading="lazy" onclick="openLightbox(${i})" alt="ảnh ${i+1}">
+      <button class="gallery-del admin-only" onclick="deletePhoto(${i})" title="Xóa ảnh">✕</button>
+    </div>
+  `).join('');
+}
+renderGallery();
+
+function handleGalleryUpload(e){
+  const files = Array.from(e.target.files);
+  let loaded = 0;
+  files.forEach(f => {
+    const r = new FileReader();
+    r.onload = ev => {
+      galleryImages.push(ev.target.result);
+      loaded++;
+      if(loaded === files.length){ save('ky_gallery', galleryImages); renderGallery(); }
+    };
+    r.readAsDataURL(f);
+  });
+}
+
+function deletePhoto(i){
+  if(!confirm('Xóa ảnh này?')) return;
+  galleryImages.splice(i, 1);
+  save('ky_gallery', galleryImages);
+  renderGallery();
+}
+
+function deleteCurrentPhoto(){
+  if(!confirm('Xóa ảnh này?')) return;
+  galleryImages.splice(lbIndex, 1);
+  save('ky_gallery', galleryImages);
+  if(!galleryImages.length){ closeLightbox(); renderGallery(); return; }
+  lbIndex = Math.min(lbIndex, galleryImages.length - 1);
+  document.getElementById('lb-img').src = galleryImages[lbIndex];
+  updateReactions();
+  renderLbComments();
+  renderGallery();
+}
+
+function openLightbox(i){
+  lbIndex = i;
+  document.getElementById('lightbox').classList.add('open');
+  document.getElementById('lb-img').src = galleryImages[i];
+  updateReactions();
+  renderLbComments();
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lbNav(dir){
+  lbIndex = (lbIndex + dir + galleryImages.length) % galleryImages.length;
+  document.getElementById('lb-img').src = galleryImages[lbIndex];
+  updateReactions();
+  renderLbComments();
+}
+
+function lbReact(emoji){
+  const key = lbIndex + '_' + emoji;
+  reactions[key] = (reactions[key] || 0) + 1;
+  save('ky_reactions', reactions);
+  updateReactions();
+}
+
+const emojiMap = {'👍':'r0','❤️':'r1','😂':'r2','😢':'r3','🔥':'r4'};
+function updateReactions(){
+  Object.entries(emojiMap).forEach(([e, id]) => {
+    const el = document.getElementById(id);
+    if(el) el.textContent = reactions[lbIndex + '_' + e] || 0;
+  });
+}
+
+// --- Comments ---
+function renderLbComments(){
+  const list = document.getElementById('lb-comments-list');
+  const cmts = photoComments[lbIndex] || [];
+  if(!cmts.length){
+    list.innerHTML = '<div class="lb-comments-empty">Chưa có bình luận nào. Hãy là người đầu tiên! 💬</div>';
+    return;
+  }
+  list.innerHTML = cmts.map((c, ci) => `
+    <div class="lb-comment">
+      <span class="lb-cmt-author">${escHtml(c.name)}:</span>
+      <span class="lb-cmt-text">${escHtml(c.text)}</span>
+      <button class="lb-cmt-del" onclick="deleteComment(${ci})" title="Xóa">✕</button>
+    </div>
+  `).join('');
+  list.scrollTop = list.scrollHeight;
+}
+
+function submitComment(e){
+  e.preventDefault();
+  const name = document.getElementById('lb-cmt-name').value.trim();
+  const text = document.getElementById('lb-cmt-text').value.trim();
+  if(!name || !text) return;
+  if(!photoComments[lbIndex]) photoComments[lbIndex] = [];
+  photoComments[lbIndex].push({ name, text, time: Date.now() });
+  save('ky_comments', photoComments);
+  document.getElementById('lb-cmt-text').value = '';
+  renderLbComments();
+}
+
+function deleteComment(ci){
+  if(!isAdmin){ showFlash('🔒 Chỉ admin mới xóa được bình luận.', 'error'); return; }
+  if(!confirm('Xóa bình luận này?')) return;
+  photoComments[lbIndex].splice(ci, 1);
+  save('ky_comments', photoComments);
+  renderLbComments();
+}
+
+function escHtml(str){
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+document.getElementById('lightbox').addEventListener('click', function(e){
+  if(e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', e => {
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft')  lbNav(-1);
+  if(e.key === 'ArrowRight') lbNav(1);
+});
+
+// ===================================================
+//  TIMELINE
+// ===================================================
+let tlEvents=load('ky_timeline',[
+  {date:'Tháng 8, 2024',title:'Ngày Tựu Trường',desc:'Gặp lại bạn bè sau kỳ nghỉ hè, những câu chuyện chưa kể và tiếng cười rộn ràng khắp sân trường.'},
+  {date:'Tháng 9, 2024',title:'Ngày Khai Giảng',desc:'Bắt đầu hành trình cuối cùng dưới mái trường.'},
+  {date:'Tháng 5, 2025',title:'Lễ Tổng Kết',desc:'Giọt nước mắt chia xa và những cái ôm thật chặt.'},
+  {date:'Tháng 6, 2025',title:'Kỳ Thì Quan Trọng',desc:'Cánh cửa tương lai mở ra, mang theo bao ước mơ và hy vọng.'},
+]);
+
+function renderTimeline(){
+  const tl=document.getElementById('timeline');
+  const colors=['#ff6b6b','#42a5f5','#ab47bc','#26a69a','#ef5350','#ff7043'];
+  tl.innerHTML=tlEvents.map((ev,i)=>`
+    <div class="tl-item reveal" style="animation-delay:${i*.1}s">
+      <div class="tl-spacer"><div class="tl-dot" style="background:${['#ff6b6b','#42a5f5','#ab47bc','#26a69a'][i%4]};box-shadow:0 0 0 3px ${['#ff6b6b','#42a5f5','#ab47bc','#26a69a'][i%4]}"></div></div>
+      <div class="tl-card" style="border-color:${['#ff6b6b','#42a5f5','#ab47bc','#26a69a'][i%4]}">
+        <button class="del-btn admin-only" onclick="deleteTLEvent(event,${i})" title="Xóa">✕</button>
+        <div class="tl-date">${ev.date}</div>
+        <div class="tl-title">${ev.title}</div>
+        <div class="tl-desc">${ev.desc}</div>
+      </div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.tl-item.reveal').forEach(el=>ro.observe(el));
+}
+renderTimeline();
+
+function deleteTLEvent(e,i){
+  e.stopPropagation();
+  if(!confirm('Xóa sự kiện này?'))return;
+  tlEvents.splice(i,1);save('ky_timeline',tlEvents);renderTimeline();
+}
+
+function openTLModal(){document.getElementById('tl-modal').classList.add('open');}
+function closeTLModal(){document.getElementById('tl-modal').classList.remove('open');}
+function saveTLEvent(){
+  const date=document.getElementById('tl-date-input').value.trim();
+  const title=document.getElementById('tl-title-input').value.trim();
+  const desc=document.getElementById('tl-desc-input').value.trim();
+  if(!title)return;
+  tlEvents.push({date,title,desc});
+  save('ky_timeline',tlEvents);renderTimeline();closeTLModal();
+  document.getElementById('tl-date-input').value='';
+  document.getElementById('tl-title-input').value='';
+  document.getElementById('tl-desc-input').value='';
+}
+
+// ===================================================
+//  VIDEO
+// ===================================================
+// Restore saved video on load
+(function(){
+  const saved = localStorage.getItem('ky_video');
+  if(saved){
+    try{
+      const v = JSON.parse(saved);
+      renderVideo(v.type, v.src);
+    }catch{}
+  }
+})();
+
+function renderVideo(type, src){
+  const wrap = document.getElementById('video-wrap');
+  if(type === 'youtube'){
+    wrap.innerHTML = `<iframe src="${src}" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>`;
+  } else if(type === 'file'){
+    wrap.innerHTML = `<video controls><source src="${src}">Trình duyệt không hỗ trợ video.</video>`;
+  }
+}
+
+function switchVideoTab(tab){
+  document.querySelectorAll('.vsrc-tab:not(.vsrc-clear)').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('vsrc-yt').style.display   = tab==='yt'   ? 'flex' : 'none';
+  document.getElementById('vsrc-file').style.display = tab==='file' ? 'block' : 'none';
+}
+
+function loadVideo(){
+  let url = document.getElementById('video-url-input').value.trim();
+  if(!url){ showFlash('Hãy dán link YouTube vào ô trên!','error'); return; }
+  // Hỗ trợ nhiều dạng URL YouTube
+  const ytPatterns = [
+    /youtube\.com\/watch\?v=([\w-]+)/,
+    /youtu\.be\/([\w-]+)/,
+    /youtube\.com\/embed\/([\w-]+)/,
+    /youtube\.com\/shorts\/([\w-]+)/,
+  ];
+  let embedUrl = null;
+  for(const p of ytPatterns){
+    const m = url.match(p);
+    if(m){ embedUrl = `https://www.youtube.com/embed/${m[1]}?autoplay=0&rel=0`; break; }
+  }
+  if(!embedUrl){ showFlash('Link không hợp lệ. Dán link YouTube vd: https://youtu.be/xxx','error'); return; }
+  renderVideo('youtube', embedUrl);
+  localStorage.setItem('ky_video', JSON.stringify({type:'youtube', src:embedUrl}));
+  document.getElementById('video-url-input').value='';
+  showFlash('✅ Đã tải video thành công!');
+}
+
+function loadVideoFile(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  if(file.size > 200 * 1024 * 1024){ // 200MB limit
+    showFlash('File quá lớn! Hãy dùng link YouTube cho video lớn hơn.','error'); return;
+  }
+  showFlash('⏳ Đang tải video...');
+  const reader = new FileReader();
+  reader.onload = ev => {
+    renderVideo('file', ev.target.result);
+    try{ localStorage.setItem('ky_video', JSON.stringify({type:'file', src:ev.target.result})); }
+    catch(err){ /* localStorage full — vẫn hiện video nhưng không lưu */ }
+    showFlash('✅ Video đã sẵn sàng!');
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearVideo(){
+  if(!confirm('Xóa video hiện tại?')) return;
+  localStorage.removeItem('ky_video');
+  document.getElementById('video-wrap').innerHTML = `
+    <div class="video-placeholder" id="video-placeholder">
+      <div class="play-icon">🎬</div>
+      <p>Upload video hoặc dán link YouTube bên dưới</p>
+    </div>`;
+  showFlash('Đã xóa video.');
+}
+
+// ===================================================
+//  LƯU BÚT (Sticky notes)
+// ===================================================
+const NOTE_COLORS=['#fffde7','#fce4ec','#e8f5e9','#e3f2fd','#f3e5f5','#fff3e0','#e0f7fa','#fbe9e7'];
+let notes=load('ky_notes',[
+  {name:'An Bình',text:'Chúc cả lớp thật tốt nhé! Dù xa nhau cũng nhớ giữ liên lạc nha mọi người.'},
+  {name:'Thanh Bảo',text:'Mãi nhớ những ngày đi học quậy mà vẫn hết lòng vì nhau. Con mãi thích.'},
+  {name:'Linh Hà',text:'Thanh xuân có bạn là điều tuyệt vời nhất. Cảm ơn cả lớp nhiều nhiều!'},
+  {name:'Thanh Bình',text:'Dù rồi mỗi người sẽ có con đường riêng nhưng mình sẽ luôn tự hào về nhau.'},
+]);
+
+function renderNotes(){
+  const grid=document.getElementById('notes-grid');
+  grid.innerHTML=notes.map((n,i)=>{
+    const rot=(Math.random()*6-3).toFixed(1);
+    return `<div class="note-card" style="background:${NOTE_COLORS[i%NOTE_COLORS.length]};--rot:${rot}deg">
+      <div class="note-author">— ${n.name}</div>
+      <div class="note-text">${n.text}</div>
+    </div>`;
+  }).join('');
+}
+renderNotes();
+
+function addNote(){
+  const name=document.getElementById('note-name').value.trim();
+  const text=document.getElementById('note-text').value.trim();
+  if(!name||!text)return;
+  notes.unshift({name,text});
+  save('ky_notes',notes);renderNotes();
+  document.getElementById('note-name').value='';
+  document.getElementById('note-text').value='';
+}
+
+// ===================================================
+//  MUSIC PLAYER
+// ===================================================
+const playlist=[
+  {title:'Memories — Bensound',url:'https://www.bensound.com/bensound-music/bensound-memories.mp3'},
+  {title:'Sunny — Bensound',url:'https://www.bensound.com/bensound-music/bensound-sunny.mp3'},
+  {title:'Cute — Bensound',url:'https://www.bensound.com/bensound-music/bensound-cute.mp3'},
+];
+let mpIdx=0,mpPlaying=false;
+const audioEl=document.getElementById('audio-el');
+const mpPlayer=document.getElementById('music-player');
+
+function mpLoad(idx){
+  mpIdx=(idx+playlist.length)%playlist.length;
+  audioEl.src=playlist[mpIdx].url;
+  document.getElementById('mp-song-name').textContent=playlist[mpIdx].title;
+  if(mpPlaying)audioEl.play().catch(()=>{});
+}
+function mpToggle(){
+  if(mpPlaying){audioEl.pause();mpPlaying=false;document.getElementById('mp-play-btn').textContent='▶';}
+  else{audioEl.play().catch(()=>{});mpPlaying=true;document.getElementById('mp-play-btn').textContent='⏸';}
+}
+function mpPrev(){mpLoad(mpIdx-1);}
+function mpNext(){mpLoad(mpIdx+1);}
+function mpSeek(e){
+  const r=e.currentTarget.getBoundingClientRect();
+  const pct=(e.clientX-r.left)/r.width;
+  audioEl.currentTime=pct*audioEl.duration;
+}
+audioEl.addEventListener('timeupdate',()=>{
+  const pct=audioEl.duration?(audioEl.currentTime/audioEl.duration*100):0;
+  document.getElementById('mp-bar').style.width=pct+'%';
+  const m=Math.floor(audioEl.currentTime/60);
+  const s=Math.floor(audioEl.currentTime%60).toString().padStart(2,'0');
+  document.getElementById('mp-time').textContent=`${m}:${s}`;
+});
+audioEl.addEventListener('ended',()=>mpNext());
+mpLoad(0);
+
+// Toggle music player
+document.getElementById('nav-music-toggle').addEventListener('click',()=>{
+  const hidden=mpPlayer.classList.toggle('hidden-player');
+  const btn=document.getElementById('nav-music-toggle');
+  btn.classList.toggle('playing',!hidden);
+  if(!hidden && !mpPlaying){mpToggle();}
+});
+
+// drag-to-upload on gallery
+const uploadArea=document.querySelector('.gallery-upload-area');
+if(uploadArea){
+  uploadArea.addEventListener('dragover',e=>{e.preventDefault();uploadArea.style.borderColor='var(--navy)';});
+  uploadArea.addEventListener('dragleave',()=>uploadArea.style.borderColor='');
+  uploadArea.addEventListener('drop',e=>{
+    e.preventDefault();uploadArea.style.borderColor='';
+    handleGalleryUpload({target:{files:e.dataTransfer.files}});
+  });
+}
+
+// ===================================================
+//  ADMIN SYSTEM
+// ===================================================
+const ADMIN_PASS = '12345'; // đổi mật khẩu ở đây
+let isAdmin = sessionStorage.getItem('ky_admin') === '1';
+
+function applyAdminState(){
+  if(isAdmin){
+    document.body.classList.add('is-admin');
+    document.getElementById('admin-icon').textContent='🔓';
+    document.getElementById('admin-text').textContent=' Logout';
+    document.getElementById('admin-toggle').classList.add('is-admin');
+    // re-render so admin-only buttons appear
+    renderMembers();
+    renderGallery();
+    renderTimeline();
+  } else {
+    document.body.classList.remove('is-admin');
+    document.getElementById('admin-icon').textContent='🔒';
+    document.getElementById('admin-text').textContent=' Admin';
+    document.getElementById('admin-toggle').classList.remove('is-admin');
+    renderMembers();
+    renderGallery();
+    renderTimeline();
+  }
+}
+
+function doAdminLogin(){
+  const pw=document.getElementById('admin-password').value;
+  if(pw===ADMIN_PASS){
+    isAdmin=true;
+    sessionStorage.setItem('ky_admin','1');
+    document.getElementById('admin-modal').classList.remove('open');
+    document.getElementById('admin-password').value='';
+    applyAdminState();
+    showFlash('🔓 Đăng nhập admin thành công!');
+  } else {
+    showFlash('❌ Mật khẩu không đúng!','error');
+    document.getElementById('admin-password').value='';
+    document.getElementById('admin-password').focus();
+  }
+}
+
+document.getElementById('admin-toggle').addEventListener('click',()=>{
+  if(isAdmin){
+    isAdmin=false;
+    sessionStorage.removeItem('ky_admin');
+    applyAdminState();
+    showFlash('Đã đăng xuất admin.');
+  } else {
+    document.getElementById('admin-modal').classList.add('open');
+    setTimeout(()=>document.getElementById('admin-password').focus(),100);
+  }
+});
+
+// close admin modal on backdrop click
+document.getElementById('admin-modal').addEventListener('click',function(e){
+  if(e.target===this) this.classList.remove('open');
+});
+
+// flash helper
+function showFlash(msg, type=''){
+  const el=document.getElementById('flash-msg');
+  el.textContent=msg;
+  el.className='show'+(type?' '+type:'');
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.className='',2800);
+}
+
+// guard: intercept write actions when not admin
+function requireAdmin(fn){
+  return function(...args){
+    if(!isAdmin){showFlash('🔒 Chỉ admin mới có thể thực hiện thao tác này.','error');return;}
+    fn(...args);
+  };
+}
+// Wrap all mutating functions
+const _deletePhoto=deletePhoto;
+deletePhoto=requireAdmin(_deletePhoto);
+const _deleteCurrentPhoto=deleteCurrentPhoto;
+deleteCurrentPhoto=requireAdmin(_deleteCurrentPhoto);
+const _deleteMember=deleteMember;
+deleteMember=requireAdmin(_deleteMember);
+const _deleteTLEvent=deleteTLEvent;
+deleteTLEvent=requireAdmin(_deleteTLEvent);
+const _saveMember=saveMember;
+saveMember=requireAdmin(_saveMember);
+const _saveTLEvent=saveTLEvent;
+saveTLEvent=requireAdmin(_saveTLEvent);
+const _addNote=addNote;
+addNote=requireAdmin(_addNote);
+const _handleGalleryUpload=handleGalleryUpload;
+handleGalleryUpload=requireAdmin(_handleGalleryUpload);
+const _loadVideo=loadVideo;
+loadVideo=requireAdmin(_loadVideo);
+
+// apply on load (restore session)
+applyAdminState();
+</script>
+</body>
+</html>
