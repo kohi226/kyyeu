@@ -964,7 +964,7 @@ function save(key,val){localStorage.setItem(key,JSON.stringify(val));}
 //           Ví dụ ảnh local: 'anh/nguyen_van_a.jpg'
 // ===================================================
 const members = [
-  {name:'Khoi',  role:'Cầm dầu 9/9',      photo:'anh/photo-1615751072497-5f5169febe17.png'},
+  {name:'Khoi',  role:'Cầm dầu 9/9',      photo:'/static/anh/photo-1615751072497-5f5169febe17.png'},
   {name:'Lớp phó',     role:'skibidi',    photo:''},
 ];
 
@@ -1000,7 +1000,7 @@ let galleryImages = [
   // 'anh/khai_giang.jpg',
   // 'anh/da_ngoai.jpg',
   // 'https://example.com/anh1.jpg',
-  'anh/banner.jpg'
+  '/static/anh/banner.jpg'
 ];
 let lbIndex = 0;
 let reactions = load('ky_reactions', {});
