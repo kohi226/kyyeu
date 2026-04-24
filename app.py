@@ -716,6 +716,69 @@ def handle_voice_messages():
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
+# ========== PHOTO REACTIONS ==========
+@app.route('/api/photo-reactions', methods=['GET'])
+def get_photo_reactions():
+    try:
+        reactions = load_json('photo_reactions.json', {})
+        return jsonify(reactions)
+    except Exception as e:
+        return jsonify({}), 500
+
+@app.route('/api/photo-reactions', methods=['POST'])
+def add_photo_reaction():
+    try:
+        data = request.get_json()
+        photo_index = str(data.get('photo_index', ''))
+        emoji = data.get('emoji', '')
+        reactions = load_json('photo_reactions.json', {})
+        key = f"{photo_index}_{emoji}"
+        reactions[key] = reactions.get(key, 0) + 1
+        save_json('photo_reactions.json', reactions)
+        return jsonify({'success': True, 'reactions': reactions})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+# ========== LƯU BÚT (NOTES) ==========
+@app.route('/api/notes', methods=['GET'])
+def get_notes():
+    try:
+        notes = load_json('notes.json', [])
+        return jsonify(notes)
+    except Exception as e:
+        return jsonify([]), 500
+
+@app.route('/api/notes', methods=['POST'])
+def add_note():
+    try:
+        data = request.get_json()
+        name = data.get('name', '').strip()
+        text = data.get('text', '').strip()
+        if not name or not text:
+            return jsonify({'success': False, 'message': 'Thiếu tên hoặc nội dung'}), 400
+        notes = load_json('notes.json', [])
+        new_note = {
+            'id': max([n.get('id', 0) for n in notes], default=0) + 1,
+            'name': name,
+            'text': text,
+            'timestamp': datetime.now().isoformat()
+        }
+        notes.insert(0, new_note)
+        save_json('notes.json', notes)
+        return jsonify({'success': True, 'note': new_note})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
+@app.route('/api/notes/<int:note_id>', methods=['DELETE'])
+def delete_note(note_id):
+    try:
+        notes = load_json('notes.json', [])
+        notes = [n for n in notes if n.get('id') != note_id]
+        save_json('notes.json', notes)
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+
 # ========== ADMIN ==========
 @app.route('/api/admin/login', methods=['POST'])
 def admin_login():
@@ -771,10 +834,11 @@ if __name__ == '__main__':
     # Khởi tạo files
     for filename in ['data.json', 'future.json', 'teacher_messages.json', 'comments.json', 
                      'timeline.json', 'timeline_comments.json', 'polls.json', 'achievements.json',
-                     'favorites.json', 'notifications.json', 'birthdays.json', 'voice_messages.json']:
+                     'favorites.json', 'notifications.json', 'birthdays.json', 'voice_messages.json',
+                     'notes.json', 'photo_reactions.json']:
         filepath = os.path.join('data', filename)
         if not os.path.exists(filepath):
-            default_data = [] if filename not in ['comments.json', 'timeline_comments.json', 'favorites.json', 'notifications.json'] else {}
+            default_data = [] if filename not in ['comments.json', 'timeline_comments.json', 'favorites.json', 'notifications.json', 'photo_reactions.json'] else {}
             save_json(filename, default_data)
     
     print("=" * 50)
