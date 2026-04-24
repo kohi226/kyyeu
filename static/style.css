@@ -1984,3 +1984,7 @@ body {
     color: #999;
     text-align: right;
 }
+@media(hover:none){
+  .member-overlay{opacity:0;transition:opacity .25s}
+  .member-card.tapped .member-overlay{opacity:1}
+}
