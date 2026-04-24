@@ -1481,7 +1481,6 @@ function renderNotes(notes){
   }
   grid.innerHTML = notes.map((n,i) => `
     <div class="note-card" style="background:${NOTE_COLORS[i%NOTE_COLORS.length]};--rot:${NOTE_ROTS[i%200]}deg">
-      <button class="note-del" onclick="apiDeleteNote(${n.id})" title="Xóa">✕</button>
       <div class="note-text">${escHtml(n.text)}</div>
       <div class="note-author">— ${escHtml(n.name)}</div>
     </div>
@@ -1522,12 +1521,6 @@ function addNote(){
   .catch(()=>showFlash('Lỗi kết nối server','error'));
 }
 
-function apiDeleteNote(id){
-  if(!confirm('Xóa lời lưu bút này?')) return;
-  fetch(`/api/notes/${id}`, {method:'DELETE'})
-    .then(()=>apiLoadNotes())
-    .catch(()=>{});
-}
 
 // ===================================================
 //  MUSIC PLAYER
