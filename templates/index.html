@@ -962,14 +962,10 @@ function save(key,val){localStorage.setItem(key,JSON.stringify(val));}
 //  - role : Biệt danh hoặc chức vụ
 //  - photo: Đường dẫn ảnh (để '' nếu không có ảnh)
 //           Ví dụ ảnh local: 'anh/nguyen_van_a.jpg'
-//           Ví dụ link web : 'https://example.com/anh.jpg'
 // ===================================================
 const members = [
-  {name:'Lớp trưởng',  role:'Boss 😎',      photo:''},
-  {name:'Lớp phó',     role:'Phó tướng',    photo:''},
-  // Thêm thành viên mới vào đây:
-  // {name:'Nguyễn Văn A', role:'Hội đồng',  photo:'anh/a.jpg'},
-  // {name:'Trần Thị B',   role:'Bí thư',    photo:''},
+  {name:'Khoi',  role:'Cầm dầu 9/9',      photo:'anh/photo-1615751072497-5f5169febe17/png'},
+  {name:'Lớp phó',     role:'skibidi',    photo:''},
 ];
 
 function renderMembers(){
@@ -1004,6 +1000,7 @@ let galleryImages = [
   // 'anh/khai_giang.jpg',
   // 'anh/da_ngoai.jpg',
   // 'https://example.com/anh1.jpg',
+  'anh/banner.jpg'
 ];
 let lbIndex = 0;
 let reactions = load('ky_reactions', {});
@@ -1121,12 +1118,8 @@ document.addEventListener('keydown', e => {
 //  - desc : Mô tả ngắn
 // ===================================================
 const tlEvents = [
-  {date:'Tháng 8, 2024', title:'Ngày Tựu Trường',   desc:'Gặp lại bạn bè sau kỳ nghỉ hè, những câu chuyện chưa kể và tiếng cười rộn ràng khắp sân trường.'},
-  {date:'Tháng 9, 2024', title:'Ngày Khai Giảng',   desc:'Bắt đầu hành trình cuối cùng dưới mái trường.'},
-  {date:'Tháng 5, 2025', title:'Lễ Tổng Kết',       desc:'Giọt nước mắt chia xa và những cái ôm thật chặt.'},
-  {date:'Tháng 6, 2025', title:'Kỳ Thi Quan Trọng', desc:'Cánh cửa tương lai mở ra, mang theo bao ước mơ và hy vọng.'},
-  // Thêm sự kiện mới vào đây:
-  // {date:'Tháng 10, 2024', title:'Dã Ngoại', desc:'Chuyến đi đáng nhớ của cả lớp.'},
+  {date:'Tháng 4, 2026', title:'abc',   desc:'xyz'},
+  {date:'Tháng 4, 2026', title:'xyz',   desc:'abc'},
 ];
 
 function renderTimeline(){
