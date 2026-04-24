@@ -969,7 +969,7 @@ body.is-admin .tl-card:hover .del-btn{opacity:1}
   <div class="container">
     <h2 class="section-title reveal">Gửi Lời Lưu Bút</h2>
     <div class="section-line reveal"></div>
-    <div class="notes-form reveal admin-only-block">
+    <div class="notes-form reveal">
       <input type="text" id="note-name" placeholder="Tên của bạn...">
       <textarea id="note-text" placeholder="Viết lời nhắn cho cả lớp..."></textarea>
       <button onclick="addNote()">Gửi lời lưu bút 💌</button>
@@ -1669,7 +1669,6 @@ saveMember=requireAdmin(_saveMember);
 const _saveTLEvent=saveTLEvent;
 saveTLEvent=requireAdmin(_saveTLEvent);
 const _addNote=addNote;
-addNote=requireAdmin(_addNote);
 const _handleGalleryUpload=handleGalleryUpload;
 handleGalleryUpload=requireAdmin(_handleGalleryUpload);
 const _loadVideo=loadVideo;
